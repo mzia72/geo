@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        #map {
+            width: 1293px;
+            height: 827px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/Punjab_1.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[27.6285405505283,67.13738715403647],[34.233782130213385,77.4735894320648]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleTerrain_0');
+        map.getPane('pane_GoogleTerrain_0').style.zIndex = 400;
+        var layer_GoogleTerrain_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleTerrain_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleTerrain_0;
+        map.addLayer(layer_GoogleTerrain_0);
+        function pop_Punjab_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">DISTT</th>\
+                        <td>' + (feature.properties['DISTT'] !== null ? autolinker.link(feature.properties['DISTT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Id</th>\
+                        <td>' + (feature.properties['Id'] !== null ? autolinker.link(feature.properties['Id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Area</th>\
+                        <td>' + (feature.properties['Area'] !== null ? autolinker.link(feature.properties['Area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Punjab_1_0(feature) {
+            switch(String(feature.properties['DISTT'])) {
+                case 'Attock':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(96,200,190,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bahawalnagar':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(52,32,231,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bahawalpur':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(53,66,239,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Bhakkar':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,130,130,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Chakwal':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(173,115,209,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'D. G. Khan':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(205,180,37,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Faisalabad':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(29,214,100,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Gujranwala':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(235,237,125,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Gujrat':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(71,109,221,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Hafizabad':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(150,128,212,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Jhang':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(109,227,115,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Jhelum':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(208,147,117,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Kasur':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(203,101,80,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Khanewal':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(233,74,156,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Khushab':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(57,206,37,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Lahore':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,168,67,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Leiah':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(102,159,239,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Lodhran':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(201,124,222,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Mandi Bahauddin':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(189,210,107,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Mianwali':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(214,55,164,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Multan':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(134,227,202,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Muzaffargarh':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(208,147,82,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Narowal':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(67,146,203,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Okara':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(211,56,82,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pakpattan':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(206,38,212,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Rahim Yar Khan':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(88,205,114,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Rajanpur':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(201,238,138,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Rawalpindi':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(167,216,124,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Sahiwal':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(137,212,237,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Sargodha':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(143,200,119,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Sheikhupura':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(51,206,139,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Sialkot':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(209,92,133,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Toba Tek Singh':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(166,110,240,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Vehari':
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(16,222,237,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_Punjab_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(201,111,188,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Punjab_1');
+        map.getPane('pane_Punjab_1').style.zIndex = 401;
+        map.getPane('pane_Punjab_1').style['mix-blend-mode'] = 'normal';
+        var layer_Punjab_1 = new L.geoJson(json_Punjab_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Punjab_1',
+            layerName: 'layer_Punjab_1',
+            pane: 'pane_Punjab_1',
+            onEachFeature: pop_Punjab_1,
+            style: style_Punjab_1_0,
+        });
+        bounds_group.addLayer(layer_Punjab_1);
+        map.addLayer(layer_Punjab_1);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Punjab<br /><table><tr><td style="text-align: center;"><img src="legend/Punjab_1_Attock0.png" /></td><td>Attock</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Bahawalnagar1.png" /></td><td>Bahawalnagar</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Bahawalpur2.png" /></td><td>Bahawalpur</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Bhakkar3.png" /></td><td>Bhakkar</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Chakwal4.png" /></td><td>Chakwal</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_DGKhan5.png" /></td><td>D. G. Khan</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Faisalabad6.png" /></td><td>Faisalabad</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Gujranwala7.png" /></td><td>Gujranwala</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Gujrat8.png" /></td><td>Gujrat</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Hafizabad9.png" /></td><td>Hafizabad</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Jhang10.png" /></td><td>Jhang</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Jhelum11.png" /></td><td>Jhelum</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Kasur12.png" /></td><td>Kasur</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Khanewal13.png" /></td><td>Khanewal</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Khushab14.png" /></td><td>Khushab</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Lahore15.png" /></td><td>Lahore</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Leiah16.png" /></td><td>Leiah</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Lodhran17.png" /></td><td>Lodhran</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_MandiBahauddin18.png" /></td><td>Mandi Bahauddin</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Mianwali19.png" /></td><td>Mianwali</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Multan20.png" /></td><td>Multan</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Muzaffargarh21.png" /></td><td>Muzaffargarh</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Narowal22.png" /></td><td>Narowal</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Okara23.png" /></td><td>Okara</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Pakpattan24.png" /></td><td>Pakpattan</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_RahimYarKhan25.png" /></td><td>Rahim Yar Khan</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Rajanpur26.png" /></td><td>Rajanpur</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Rawalpindi27.png" /></td><td>Rawalpindi</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Sahiwal28.png" /></td><td>Sahiwal</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Sargodha29.png" /></td><td>Sargodha</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Sheikhupura30.png" /></td><td>Sheikhupura</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Sialkot31.png" /></td><td>Sialkot</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_TobaTekSingh32.png" /></td><td>Toba Tek Singh</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_Vehari33.png" /></td><td>Vehari</td></tr><tr><td style="text-align: center;"><img src="legend/Punjab_1_34.png" /></td><td></td></tr></table>': layer_Punjab_1,"Google Terrain": layer_GoogleTerrain_0,}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_Punjab_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['DISTT'] !== null?String('<div style="color: #f04304; font-size: 8pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['DISTT']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Punjab_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        map.addControl(new L.Control.Search({
+            layer: layer_Punjab_1,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'DISTT'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"Id": "int"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+        var i = 0;
+        layer_Punjab_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['DISTT'] !== null?String('<div style="color: #f04304; font-size: 8pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['DISTT']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Punjab_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Id = document.createElement("div");
+            div_Id.id = "div_Id";
+            div_Id.className = "slider";
+            document.getElementById("menu").appendChild(div_Id);
+            var lab_Id = document.createElement('div');
+            lab_Id.innerHTML  = 'Id: <span id="val_Id"></span>';
+            lab_Id.className = 'filterlabel';
+            document.getElementById("menu").appendChild(lab_Id);
+            var reset_Id = document.createElement('div');
+            reset_Id.innerHTML = 'clear filter';
+            reset_Id.className = 'filterlabel';
+            lab_Id.className = 'filterlabel';
+            reset_Id.onclick = function() {
+                sel_Id.noUiSlider.reset();
+            };
+            document.getElementById("menu").appendChild(reset_Id);
+            var sel_Id = document.getElementById('div_Id');
+            noUiSlider.create(sel_Id, {
+                connect: true,
+                start: [1, 34],
+                step: 1,
+                format: wNumb({
+                    decimals: 0,
+                    }),
+                range: {
+                min: 1,
+                max: 34
+                }
+            });
+            sel_Id.noUiSlider.on('update', function (values) {
+            filterVals =[];
+            for (value in values){
+            filterVals.push(parseInt(value))
+            }
+            val_Id = document.getElementById('val_Id');
+            val_Id.innerHTML = values.join(' - ');
+                filterFunc()
+            });
+        resetLabels([layer_Punjab_1]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Punjab_1]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Punjab_1]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Punjab_1]);
+        });
+        </script>
+    </body>
+</html>
